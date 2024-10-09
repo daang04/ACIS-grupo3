@@ -172,7 +172,7 @@ def main():
                  " datos sintéticos.")
         
     elif menu_seleccionado == "Manual de Usuario":
-        st.title('Manual de Usuario')
+        '''st.title('Manual de Usuario')
 
         # Sección: ¿Para qué sirve?
         st.subheader('¿Para qué sirve?')
@@ -185,8 +185,8 @@ def main():
         
         # Sección: ¿Cuáles son los parámetros empleados?
         st.subheader('¿Cuáles son los parámetros empleados?')
-        st.write('Los parámetros que se pueden variar son los siguientes:')
-    elif menu_seleccionado == "DOCKERS":
+        st.write('Los parámetros que se pueden variar son los siguientes:')'''
+
         # Título de la presentación
         st.title("Presentación: Dockerfiles y Automatización")
         
@@ -377,6 +377,8 @@ def main():
         st.header("Recursos adicionales")
         st.write("[Docker Documentation](https://docs.docker.com/)")
         st.write("Tutoriales sobre GitHub Actions y CI/CD.")
+    
+        
 
 
 if __name__ == "__main__":
