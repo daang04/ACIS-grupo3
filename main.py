@@ -75,7 +75,7 @@ def main():
     # Link de los iconos: https://icons.getbootstrap.com/icons/clipboard-fill/ 
     with st.sidebar:
         menu_seleccionado = option_menu("Menú", ["SCYCLE-GAN", "ACPIS", "Manual de Usuario","DOCKERS"],
-                                        icons=["cloud-upload", "bi bi-clipboard-fill","book"],
+                                        icons=["cloud-upload", "bi bi-clipboard-fill","book","book"],
                                         menu_icon="cast", default_index=0)
 
     # Crear instancia del procesador de imágenes
