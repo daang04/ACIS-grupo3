@@ -1,6 +1,5 @@
 pillow
 av
-mediapipe
 pydicom
 streamlit_option_menu
 
