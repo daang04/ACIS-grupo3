@@ -171,6 +171,12 @@ def main():
                  " imágenes generadas y mejorar el proceso de entrenamiento del modelo para maximizar el uso de los\n"
                  " datos sintéticos.")
         
+        st.subheader('Referencias')
+        st.write('Paper base: https://arxiv.org/html/2406.01191v2')
+        st.write('Repositorio referencial: https://github.com/yhsong98/ct-us-i2i-translation')
+        st.write('Dataset sugerido: https://www.kaggle.com/datasets/ignaciorlando/ussimandsegm/data')
+        
+        
     elif menu_seleccionado == "Manual de Usuario":
         st.title('Manual de Usuario')
 
