@@ -66,7 +66,7 @@ class IA_Modelo:
 # Función principal que define la estructura de la aplicación con múltiples páginas
 def main():
     # Título de la aplicación
-    st.title("Aplicación de Procesamiento DICOM/JPG con IA")
+    st.title("MEDGAN")
     
     # Agregar el disclaimer al inicio de la aplicación
     st.info("**Disclaimer:** Este programa ha sido diseñado con fines académicos por lo que no se recomienda el uso de las imágenes generadas como guía o resultados de algún tipo para el diagnóstico.")
