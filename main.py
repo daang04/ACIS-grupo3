@@ -75,7 +75,7 @@ def main():
     # Link de los iconos: https://icons.getbootstrap.com/icons/clipboard-fill/ 
     with st.sidebar:
         menu_seleccionado = option_menu("Menú", ["SCYCLE-GAN", "ACPIS", "Manual de Usuario"],
-                                        icons=["cloud-upload", "bi bi-clipboard-fill","book","book"],
+                                        icons=["cloud-upload", "bi bi-clipboard-fill","book"],
                                         menu_icon="cast", default_index=0)
 
     # Crear instancia del procesador de imágenes
@@ -171,10 +171,21 @@ def main():
                  " imágenes generadas y mejorar el proceso de entrenamiento del modelo para maximizar el uso de los\n"
                  " datos sintéticos.")
         
-    #elif menu_seleccionado == "Manual de Usuario":
-        
-        
+    elif menu_seleccionado == "Manual de Usuario":
+        st.title('Manual de Usuario')
 
+        # Sección: ¿Para qué sirve?
+        st.subheader('¿Para qué sirve?')
+        st.write('Esta es una aplicación de la cual se encarga de transformar imágenes de CT a US y viceversa')
+        
+        # Cargar la imagen
+        image_path = 'https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/ha-removebg-preview.png' # Ruta de tu imagen
+        # ha-removebg-preview.png
+        st.image(image_path, width=300)
+        
+        # Sección: ¿Cuáles son los parámetros empleados?
+        st.subheader('¿Cuáles son los parámetros empleados?')
+        st.write('Los parámetros que se pueden variar son los siguientes:')
 
 if __name__ == "__main__":
     main()
