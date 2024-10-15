@@ -128,6 +128,9 @@ def main():
                         mime="image/jpeg"
                     )
 
+        url = st.text_input('Link de la carpeta drive donde desee descargar') # permitir drive abrir
+          
+
     # Página 2: Personalizar (vacía)
     elif menu_seleccionado == "ACPIS":
         st.header("S-CycleGAN: Semantic Segmentation Enhanced CT-Ultrasound Image-to-Image Translation for Robotic Ultrasonography")
