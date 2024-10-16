@@ -75,21 +75,29 @@ def main():
     # Título de la aplicación
     #st.image(logo_url, width=70)
     # Mostrar el ícono .ico centrado
+
+    # Mostrar el ícono .ico a la izquierda y el título a la derecha
     st.markdown(
         """
         <style>
-        .centered {
+        .header {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            justify-content: flex-end; /* Alinear a la derecha */
+        }
+        .header img {
+            margin-right: 10px; /* Espaciado entre la imagen y el título */
         }
         </style>
-        <div class="centered">
-            <img src="https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png" width="20">
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png" width="70">
+            <h1 style="margin: 0;">MEDGAN</h1>
         </div>
         """,
         unsafe_allow_html=True
     )
-    st.title("MEDGAN")
+
+    #st.title("MEDGAN")
     
     # Agregar el disclaimer al inicio de la aplicación
     st.info("**Disclaimer:** Este programa ha sido diseñado con fines académicos por lo que no se recomienda el uso de las imágenes generadas como guía o resultados de algún tipo para el diagnóstico.")
