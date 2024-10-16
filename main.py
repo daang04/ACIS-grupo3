@@ -245,7 +245,7 @@ def main():
         st.subheader('¿Cuáles son los parámetros empleados?')
         st.write('Los parámetros que se pueden variar son los siguientes:')
         st.write('\t 1) El nombre del paciente ')
-        st.write('\t 2) El apellido del paciente ')
+        st.write('\t 2) El DNI del paciente ')
         st.write('\t 3) La fecha ')
         st.write('\t 4) Una imagen en formato: dcm, jpeg, png ')
 
