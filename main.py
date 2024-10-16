@@ -181,11 +181,8 @@ def main():
                 if prediccion is not None:
                     st.image(prediccion, caption="Resultado de la Predicción", use_column_width=True)
 
-                    # Guardar la imagen con el formato especificado
-                    try: 
-                        prediccion_img = Image.fromarray((prediccion * 255).astype(np.uint8))
-                    except Exception as e:
-                        prediccion_img = Image.fromarray((imagen * 255).astype(np.uint8))  # Convertir la imagen original en caso de error
+                    # Guardar la imagen con el formato especificado 
+                    prediccion_img = Image.fromarray((prediccion).astype(np.uint8))
                         
                     buffer = io.BytesIO()
                     nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
