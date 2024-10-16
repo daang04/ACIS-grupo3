@@ -10,7 +10,7 @@ import io
 import torch
 import torch.nn.functional as F
 import os
-sys.path.append(os.path.abspath("Ruta/del/proyecto"))  # Ruta donde está tu archivo models
+sys.path.append(os.path.abspath("Repositorio_OG/models/networks.py"))  # Ruta donde está tu archivo models
 from models.networks import UnetGenerator
 
 
