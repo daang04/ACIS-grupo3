@@ -86,7 +86,7 @@ class IA_CycleGAN_Modelo:
 def main():
     # Cargar los modelos entrenados (generadores A->B y B->A)
     modelo_G_A2B = 'Avances/Presentacion Parcial/Modelos_entrenados/generador_A_entrenado.pth'  # Cambia esta ruta
-    modelo_G_B2A = 'https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/Avances/Presentacion%20Parcial/Modelos_entrenados/generador_B_entrenado.pth'  # Cambia esta ruta
+    modelo_G_B2A = 'Avances/Presentacion Parcial/Modelos_entrenados/generador_B_entrenado.pth'  # Cambia esta ruta
 
     # URL en formato RAW del icono
     logo_url = "https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png"
