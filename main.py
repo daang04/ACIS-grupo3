@@ -62,7 +62,6 @@ class IA_CycleGAN_Modelo:
 
     def cargar_modelo(self, modelo_path):
         try: 
-            # Cargar el modelo en formato .pth
             modelo = UnetGenerator(input_nc=1, output_nc=1, num_downs=8)  # Ajusta los parámetros según lo que utilizaste
             modelo.load_state_dict(torch.load(modelo_path, map_location=torch.device('cpu')))
             modelo.eval()  # Establecer el modelo en modo evaluación
@@ -211,7 +210,23 @@ def main():
         github = 'https://github.com/daang04/ACIS-grupo3/blob/main/README.md'
 
         st.subheader('Introducción')
-        st.write('El artículo aborda los desafíos en el análisis de imágenes de ultrasonido...')
+
+        st.write('El artículo aborda los desafíos en el análisis de imágenes de ultrasonido, un método no invasivo ampliamente utilizado en diagnósticos médicos. Sin embargo, la calidad de las imágenes de ultrasonido puede verse comprometida por factores como el bajo contraste y la presencia de artefactos. Para superar estas limitaciones, los autores proponen un modelo avanzado de deep learning denominado S-CycleGAN, que genera imágenes sintéticas de ultrasonido a partir de datos de tomografía computarizada (CT). Este modelo integra discriminadores semánticos dentro del marco de CycleGAN para preservar los detalles anatómicos críticos durante la transferencia de estilo de imagen.')
+
+        st.subheader('Desarrollo')
+        st.write('El desarrollo del trabajo se centra en la construcción de un sistema automatizado de escaneo de ultrasonido asistido por robots (RUSS), donde el modelo S-CycleGAN se utiliza para mejorar la calidad y la precisión de las imágenes de ultrasonido generadas a partir de datos de CT. Los autores describen la arquitectura de S-CycleGAN, que incluye dos generadores y dos discriminadores, junto con redes de segmentación que actúan como discriminadores semánticos.')
+
+        st.subheader('Técnicas de Procesamiento de Imágenes')
+        st.write("CycleGAN Generadores y Discriminadores: Los generadores convierten imágenes de CT en ultrasonido y viceversa, mientras que los discriminadores tratan de diferenciar entre imágenes reales y generadas. Pérdida de Consistencia Cíclica: Asegura que la traducción de una imagen de un dominio a otro y su retorno al dominio original mantenga la imagen inicial sin cambios significativos. S-CycleGAN Discriminadores Semánticos: Incorporan redes de segmentación que analizan las imágenes generadas para garantizar que se preserven las características anatómicas esenciales.")
+
+        st.subheader('Conclusion')
+        st.write("El S-CycleGAN demuestra ser eficaz en la generación de imágenes de ultrasonido sintéticas de alta calidad que mantienen las características anatómicas críticas de las imágenes de CT. Los resultados son prometedores para su aplicación en la simulación de escaneos y el desarrollo de sistemas de ultrasonido asistidos por robots.")
+
+        st.subheader('Referencias')
+        st.write('Paper base: https://arxiv.org/html/2406.01191v2')
+        st.write('Repositorio referencial: https://github.com/yhsong98/ct-us-i2i-translation')
+        st.write('Dataset sugerido: https://www.kaggle.com/datasets/ignaciorlando/ussimandsegm/data')
+
 
     elif menu_seleccionado == "Manual de Usuario":
         st.title('Manual de Usuario')
