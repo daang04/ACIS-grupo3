@@ -90,11 +90,11 @@ def main():
         dni_paciente = st.text_input("DNI del paciente")
         fecha_examen = st.date_input("Fecha del examen", value=datetime.now())
     
-        '''st.header("Transformar a ...")
+        #st.header("Transformar a ...")
         
         # Selección de tipo de imagen
-        tipo_imagen = st.radio("Selecciona el tipo de imagen", ("Imagen de Ultrasonido", "Imagen de Tomografía Computarizada"))
-        '''
+        #tipo_imagen = st.radio("Selecciona el tipo de imagen", ("Imagen de Ultrasonido", "Imagen de Tomografía Computarizada"))
+        
     
         st.header("Cargar Imagen (DICOM o JPG) y Predicción")
         
