@@ -7,6 +7,7 @@ from streamlit_option_menu import option_menu
 import requests
 from datetime import datetime
 import io
+import pickle
 
 # Clase para cargar y procesar imágenes DICOM o JPG
 class DicomProcessor:
