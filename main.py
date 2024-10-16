@@ -67,7 +67,17 @@ class IA_Modelo:
 def main():
     # URL en formato RAW del icono
     logo_url = "https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN.png"
-    st.set_page_config(page_icon = logo_url)
+    # Descargar la imagen
+    response = requests.get(logo_url)
+    img = Image.open(BytesIO(response.content))
+    
+    # Redimensionar a 16x16
+    img_resized = img.resize((16, 16))
+    
+    # Guardar la imagen redimensionada si deseas
+    img_resized.save("favicon_16x16.png")
+    
+    st.set_page_config(page_icon = img_resized)
     # favicon being an object of the same kind as the one you should provide st.image() with (ie. a PIL array for example) 
     #or a string (url or local file path)
     
