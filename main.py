@@ -8,6 +8,7 @@ import requests
 from datetime import datetime
 import io
 import pickle
+import torch
 
 # Clase para cargar y procesar imágenes DICOM o JPG
 class DicomProcessor:
