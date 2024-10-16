@@ -9,6 +9,7 @@ from datetime import datetime
 import io
 import torch
 import torch.nn.functional as F
+from models.networks import UnetGenerator
 
 # Clase para cargar y procesar imágenes DICOM o JPG
 class DicomProcessor:
