@@ -50,7 +50,11 @@ class IA_CycleGAN_Modelo:
 
     def cargar_modelo(self, modelo_path):
         # Cargar el modelo en formato .pth
-        modelo = torch.load(modelo_path, map_location=torch.device('cpu'))  # Asegurarse de cargar en CPU si no tienes GPU
+        #modelo = torch.load(modelo_path, map_location=torch.device('cpu'))  # Asegurarse de cargar en CPU si no tienes GPU
+        #modelo.eval()  # Establecer el modelo en modo evaluación
+        #st.success(f"Modelo {modelo_path} IA cargado correctamente.")
+        modelo = UnetGenerator(input_nc=1, output_nc=1, num_downs=8)  # Ajusta los parámetros según lo que utilizaste
+        modelo.load_state_dict(torch.load(modelo_path, map_location=torch.device('cpu')))
         modelo.eval()  # Establecer el modelo en modo evaluación
         st.success(f"Modelo {modelo_path} IA cargado correctamente.")
         return modelo
