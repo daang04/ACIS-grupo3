@@ -2,4 +2,6 @@ pillow
 av
 pydicom
 streamlit_option_menu
-
+torch
+torchvision
+torchaudio
