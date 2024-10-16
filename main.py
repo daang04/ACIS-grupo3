@@ -191,10 +191,12 @@ def main():
                         buffer.seek(0)
                     else:
                         prediccion_img = prediccion
-                        buffer = io.BytesIO()
-                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
-                        prediccion_img.save(buffer, format="JPEG")
+                        # Si prediccion es un archivo de bytes, puedes utilizarlo directamente
+                        buffer = io.BytesIO(prediccion)  # No es necesario volver a guardar
                         buffer.seek(0)
+
+                        # Definir el nombre del archivo
+                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
                     
                     # Botón para descargar la imagen
                     st.download_button(
