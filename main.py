@@ -66,7 +66,10 @@ class IA_Modelo:
 
 
 # Función principal que define la estructura de la aplicación con múltiples páginas
-def main():
+def main():    
+    # Cargar el modelo entrenado
+    modelo_entrenado = 'modelo.pth'
+    
     # URL en formato RAW del icono
     logo_url = "https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png"
     
@@ -135,7 +138,7 @@ def main():
 
         if uploaded_file is not None:
             # Cargar el modelo y hacer predicción
-            #modelo_ia = IA_Modelo("modelo_entrenado.pkl")
+            #modelo_ia = IA_Modelo(modelo_entrenado)
             # Obtener la extensión del archivo subido
             file_extension = uploaded_file.name.split(".")[-1].lower()
         
