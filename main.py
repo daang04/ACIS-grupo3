@@ -149,8 +149,12 @@ def main():
         uploaded_file = st.file_uploader("Elige un archivo DICOM o JPG", type=["dcm", "jpg", "jpeg"])
 
         if uploaded_file is not None:
-            # Cargar los modelos de IA
-            modelo_ia = IA_CycleGAN_Modelo(modelo_G_A2B, modelo_G_B2A)
+            try:
+                # Cargar los modelos de IA
+                modelo_ia = IA_CycleGAN_Modelo(modelo_G_A2B, modelo_G_B2A)
+                
+            except Exception as e:
+                st.error(f"Error al cargar el modelo desde {modelo_path}: {str(e)}")
 
             # Obtener la extensión del archivo subido
             file_extension = uploaded_file.name.split(".")[-1].lower()
@@ -168,7 +172,12 @@ def main():
             direccion = st.radio("Selecciona la dirección de traducción", ("A -> B", "B -> A"))
 
             if st.button("Realizar Predicción"):
-                prediccion = modelo_ia.predecir(imagen, direccion)
+                try:
+                    prediccion = modelo_ia.predecir(imagen, direccion)
+                except Exception as e:
+                    prediccion = imagen
+                    st.warning("No se ha podido predecir correctamente")
+                    
                 if prediccion is not None:
                     st.image(prediccion, caption="Resultado de la Predicción", use_column_width=True)
 
