@@ -73,7 +73,22 @@ def main():
     #or a string (url or local file path)
     
     # Título de la aplicación
-    st.image(logo_url, width=70)
+    #st.image(logo_url, width=70)
+    # Mostrar el ícono .ico centrado
+    st.markdown(
+        """
+        <style>
+        .centered {
+            display: flex;
+            justify-content: center;
+        }
+        </style>
+        <div class="centered">
+            <img src="https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png" width="20">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     st.title("MEDGAN")
     
     # Agregar el disclaimer al inicio de la aplicación
