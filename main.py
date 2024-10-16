@@ -83,10 +83,10 @@ def main():
         .header {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Alinear a la derecha */
+            
         }
         .header img {
-            margin-right: 10px; /* Espaciado entre la imagen y el título */
+            margin-right: 20px; /* Espaciado entre la imagen y el título */
         }
         </style>
         <div class="header">
