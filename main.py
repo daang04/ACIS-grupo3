@@ -45,21 +45,30 @@ class DicomProcessor:
 class IA_CycleGAN_Modelo:
     def __init__(self, modelo_path_G_A, modelo_path_G_B):
         # Cargar ambos generadores (A -> B y B -> A)
-        self.generador_A2B = self.cargar_modelo(modelo_path_G_A)
-        self.generador_B2A = self.cargar_modelo(modelo_path_G_B)
+        try:
+            self.generador_A2B = self.cargar_modelo(modelo_path_G_A)
+            self.generador_B2A = self.cargar_modelo(modelo_path_G_B)
+        except Execption as e:
+            st.error(f"Error al cargar los modelos: {str(e)}")
 
     def cargar_modelo(self, modelo_path):
-        # Cargar el modelo en formato .pth
-        #modelo = torch.load(modelo_path, map_location=torch.device('cpu'))  # Asegurarse de cargar en CPU si no tienes GPU
-        #modelo.eval()  # Establecer el modelo en modo evaluación
-        #st.success(f"Modelo {modelo_path} IA cargado correctamente.")
-        modelo = UnetGenerator(input_nc=1, output_nc=1, num_downs=8)  # Ajusta los parámetros según lo que utilizaste
-        modelo.load_state_dict(torch.load(modelo_path, map_location=torch.device('cpu')))
-        modelo.eval()  # Establecer el modelo en modo evaluación
-        st.success(f"Modelo {modelo_path} IA cargado correctamente.")
-        return modelo
+        try: 
+            # Cargar el modelo en formato .pth
+            #modelo = torch.load(modelo_path, map_location=torch.device('cpu'))  # Asegurarse de cargar en CPU si no tienes GPU
+            #modelo.eval()  # Establecer el modelo en modo evaluación
+            #st.success(f"Modelo {modelo_path} IA cargado correctamente.")
+            modelo = UnetGenerator(input_nc=1, output_nc=1, num_downs=8)  # Ajusta los parámetros según lo que utilizaste
+            modelo.load_state_dict(torch.load(modelo_path, map_location=torch.device('cpu')))
+            modelo.eval()  # Establecer el modelo en modo evaluación
+            st.success(f"Modelo {modelo_path} IA cargado correctamente.")
+            return modelo
+        except Exception as e:
+            
+            st.error(f"Error al cargar el modelo desde {modelo_path}: {str(e)}")
+            return None
 
     def predecir(self, imagen, direccion):
+        
         if imagen is not None:
             # Convertir imagen a RGB y redimensionar
             imagen = Image.fromarray(imagen).convert('RGB')
