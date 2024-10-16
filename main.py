@@ -143,13 +143,13 @@ def main():
             file_extension = uploaded_file.name.split(".")[-1].lower()
 
             if file_extension == "dcm":
+                # Procesamiento específico para archivos DICOM
                 dicom_processor.cargar_archivo(uploaded_file)
                 dicom_processor.mostrar_imagen()
+            
                 imagen = dicom_processor.obtener_imagen()
             else:
-                dicom_processor.cargar_archivo(uploaded_file)
-                dicom_processor.mostrar_imagen()
-                imagen = dicom_processor.obtener_imagen()
+                imagen = uploaded_file
 
             # Selección de la dirección de la traducción
             direccion = st.radio("Selecciona la dirección de traducción", ("A -> B", "B -> A"))
