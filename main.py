@@ -100,34 +100,39 @@ def main():
         
         uploaded_file = st.file_uploader("Elige un archivo DICOM o JPG", type=["dcm", "jpg", "jpeg"])
         if uploaded_file is not None:
-            dicom_processor.cargar_archivo(uploaded_file)
-            dicom_processor.mostrar_imagen()
-    
-            # Cargar el modelo y hacer predicción
-            modelo_ia = IA_Modelo("modelo_entrenado.pkl")
-            imagen = dicom_processor.obtener_imagen()
-    
-            if st.button("Realizar Predicción"):
-                prediccion = modelo_ia.predecir(imagen)
-                if prediccion is not None:
-                    #st.write(f"Resultado de la predicción: {prediccion}")
+            # Obtener la extensión del archivo subido
+            file_extension = uploaded_file.name.split(".")[-1].lower()
 
-                    st.image(prediccion, caption="Resultado de la Predicción")
-
-                    # Guardar la imagen con el formato especificado
-                    prediccion_img = Image.fromarray(prediccion)
-                    buffer = io.BytesIO()
-                    nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
-                    prediccion_img.save(buffer, format="JPEG")
-                    buffer.seek(0)
-    
-                    # Botón para descargar la imagen
-                    st.download_button(
-                        label="Descargar Imagen",
-                        data=buffer,
-                        file_name=nombre_archivo,
-                        mime="image/jpeg"
-                    )
+            if file_extension == "dcm":
+                # Procesamiento específico para archivos DICOM
+                dicom_processor.cargar_archivo(uploaded_file)
+                dicom_processor.mostrar_imagen()
+                
+                # Cargar el modelo y hacer predicción
+                modelo_ia = IA_Modelo("modelo_entrenado.pkl")
+                imagen = dicom_processor.obtener_imagen()
+           else:
+               imagen = uploaded_file
+               
+           if st.button("Realizar Predicción"):
+                    prediccion = modelo_ia.predecir(imagen)
+                    if prediccion is not None:
+                        st.image(prediccion, caption="Resultado de la Predicción")
+        
+                        # Guardar la imagen con el formato especificado
+                        prediccion_img = Image.fromarray(prediccion)
+                        buffer = io.BytesIO()
+                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
+                        prediccion_img.save(buffer, format="JPEG")
+                        buffer.seek(0)
+        
+                        # Botón para descargar la imagen
+                        st.download_button(
+                            label="Descargar Imagen",
+                            data=buffer,
+                            file_name=nombre_archivo,
+                            mime="image/jpeg"
+                        )
 
         # url = st.text_input('Link de la carpeta drive donde desee descargar') # permitir drive abrir
           
