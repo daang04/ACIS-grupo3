@@ -9,7 +9,15 @@ from datetime import datetime
 import io
 import torch
 import torch.nn.functional as F
+import os
+import sys
+
+# Agregar la ruta de 'Repositorio_OG' al sys.path
+sys.path.append(os.path.abspath("Repositorio_OG"))
+
+# Ahora intenta importar UnetGenerator desde models.networks
 from models.networks import UnetGenerator
+
 
 
 # Clase para cargar y procesar imágenes DICOM o JPG
