@@ -66,7 +66,7 @@ class IA_Modelo:
 # Función principal que define la estructura de la aplicación con múltiples páginas
 def main():
     # URL en formato RAW del icono
-    logo_url = "https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN.png"
+    logo_url = "https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png"
     
     st.set_page_config(page_icon = logo_url)
     # favicon being an object of the same kind as the one you should provide st.image() with (ie. a PIL array for example) 
