@@ -5,3 +5,4 @@ streamlit_option_menu
 torch
 torchvision
 torchaudio
+matplotlib
