@@ -185,14 +185,17 @@ def main():
                     if flag != 1:
                         # Guardar la imagen con el formato especificado 
                         prediccion_img = Image.fromarray((prediccion*255).astype(np.uint8))
+                        buffer = io.BytesIO()
+                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
+                        prediccion_img.save(buffer, format="JPEG")
+                        buffer.seek(0)
                     else:
                         prediccion_img = prediccion
-                        
-                    buffer = io.BytesIO()
-                    nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
-                    prediccion_img.save(buffer, format="JPEG")
-                    buffer.seek(0)
-
+                        buffer = io.BytesIO()
+                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
+                        prediccion_img.save(buffer, format="JPEG")
+                        buffer.seek(0)
+                    
                     # Botón para descargar la imagen
                     st.download_button(
                         label="Descargar Imagen",
