@@ -185,7 +185,7 @@ def main():
                     try: 
                         prediccion_img = Image.fromarray((prediccion * 255).astype(np.uint8))
                     except Exception as e:
-                        prediccion_img = prediccion
+                        prediccion_img = Image.fromarray((imagen * 255).astype(np.uint8))  # Convertir la imagen original en caso de error
                         
                     buffer = io.BytesIO()
                     nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
