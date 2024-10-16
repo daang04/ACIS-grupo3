@@ -167,6 +167,7 @@ def main():
                 imagen = dicom_processor.obtener_imagen()
             else:
                 imagen = uploaded_file
+                flag = 1
 
             # Selección de la dirección de la traducción
             direccion = st.radio("Selecciona la dirección de traducción", ("A -> B", "B -> A"))
@@ -180,9 +181,12 @@ def main():
                     
                 if prediccion is not None:
                     st.image(prediccion, caption="Resultado de la Predicción", use_column_width=True)
-
-                    # Guardar la imagen con el formato especificado 
-                    prediccion_img = Image.fromarray((prediccion).astype(np.uint8))
+                    
+                    if flag != 1:
+                        # Guardar la imagen con el formato especificado 
+                        prediccion_img = Image.fromarray((prediccion*255).astype(np.uint8))
+                    else:
+                        prediccion_img = prediccion
                         
                     buffer = io.BytesIO()
                     nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
