@@ -182,7 +182,11 @@ def main():
                     st.image(prediccion, caption="Resultado de la Predicción", use_column_width=True)
 
                     # Guardar la imagen con el formato especificado
-                    prediccion_img = Image.fromarray((prediccion * 255).astype(np.uint8))
+                    try: 
+                        prediccion_img = Image.fromarray((prediccion * 255).astype(np.uint8))
+                    except Exception as e:
+                        prediccion_img = prediccion
+                        
                     buffer = io.BytesIO()
                     nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
                     prediccion_img.save(buffer, format="JPEG")
