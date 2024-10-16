@@ -73,7 +73,7 @@ def main():
     #or a string (url or local file path)
     
     # Título de la aplicación
-    st.image(logo_url, width=40)
+    st.image(logo_url, width=70)
     st.title("MEDGAN")
     
     # Agregar el disclaimer al inicio de la aplicación
