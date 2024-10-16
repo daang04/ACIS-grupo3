@@ -45,17 +45,30 @@ class DicomProcessor:
 class IA_CycleGAN_Modelo:
     def __init__(self, modelo_path_G_A, modelo_path_G_B):
         # Cargar ambos generadores (A -> B y B -> A)
-        self.generador_A2B = self.cargar_modelo(modelo_path_G_A)
-        self.generador_B2A = self.cargar_modelo(modelo_path_G_B)
+        try:
+            self.generador_A2B = self.cargar_modelo(modelo_path_G_A)
+            self.generador_B2A = self.cargar_modelo(modelo_path_G_B)
+        except Execption as e:
+            st.error(f"Error al cargar los modelos: {str(e)}")
 
     def cargar_modelo(self, modelo_path):
-        # Cargar el modelo en formato .pth
-        modelo = torch.load(modelo_path, map_location=torch.device('cpu'))  # Asegurarse de cargar en CPU si no tienes GPU
-        modelo.eval()  # Establecer el modelo en modo evaluación
-        st.success(f"Modelo {modelo_path} IA cargado correctamente.")
-        return modelo
+        try: 
+            # Cargar el modelo en formato .pth
+            #modelo = torch.load(modelo_path, map_location=torch.device('cpu'))  # Asegurarse de cargar en CPU si no tienes GPU
+            #modelo.eval()  # Establecer el modelo en modo evaluación
+            #st.success(f"Modelo {modelo_path} IA cargado correctamente.")
+            modelo = UnetGenerator(input_nc=1, output_nc=1, num_downs=8)  # Ajusta los parámetros según lo que utilizaste
+            modelo.load_state_dict(torch.load(modelo_path, map_location=torch.device('cpu')))
+            modelo.eval()  # Establecer el modelo en modo evaluación
+            st.success(f"Modelo {modelo_path} IA cargado correctamente.")
+            return modelo
+        except Exception as e:
+            
+            st.error(f"Error al cargar el modelo desde {modelo_path}: {str(e)}")
+            return None
 
     def predecir(self, imagen, direccion):
+        
         if imagen is not None:
             # Convertir imagen a RGB y redimensionar
             imagen = Image.fromarray(imagen).convert('RGB')
@@ -85,8 +98,8 @@ class IA_CycleGAN_Modelo:
 # Función principal que define la estructura de la aplicación con múltiples páginas
 def main():
     # Cargar los modelos entrenados (generadores A->B y B->A)
-    modelo_G_A2B = 'ruta/al/modelo/generador_A_entrenado.pth'  # Cambia esta ruta
-    modelo_G_B2A = 'ruta/al/modelo/generador_B_entrenado.pth'  # Cambia esta ruta
+    modelo_G_A2B = 'Avances/Presentacion Parcial/Modelos_entrenados/generador_A_entrenado.pth'  # Cambia esta ruta
+    modelo_G_B2A = 'Avances/Presentacion Parcial/Modelos_entrenados/generador_B_entrenado.pth'  # Cambia esta ruta
 
     # URL en formato RAW del icono
     logo_url = "https://raw.githubusercontent.com/daang04/ACIS-grupo3/main/icon_MEDGAN%20(1).png"
@@ -136,8 +149,12 @@ def main():
         uploaded_file = st.file_uploader("Elige un archivo DICOM o JPG", type=["dcm", "jpg", "jpeg"])
 
         if uploaded_file is not None:
-            # Cargar los modelos de IA
-            modelo_ia = IA_CycleGAN_Modelo(modelo_G_A2B, modelo_G_B2A)
+            try:
+                # Cargar los modelos de IA
+                modelo_ia = IA_CycleGAN_Modelo(modelo_G_A2B, modelo_G_B2A)
+                
+            except Exception as e:
+                st.error(f"Error al cargar el modelo desde {modelo_path}: {str(e)}")
 
             # Obtener la extensión del archivo subido
             file_extension = uploaded_file.name.split(".")[-1].lower()
@@ -150,29 +167,46 @@ def main():
                 imagen = dicom_processor.obtener_imagen()
             else:
                 imagen = uploaded_file
+                flag = 1
 
             # Selección de la dirección de la traducción
             direccion = st.radio("Selecciona la dirección de traducción", ("A -> B", "B -> A"))
 
             if st.button("Realizar Predicción"):
-                prediccion = modelo_ia.predecir(imagen, direccion)
+                try:
+                    prediccion = modelo_ia.predecir(imagen, direccion)
+                except Exception as e:
+                    prediccion = imagen
+                    st.warning("No se ha podido predecir correctamente")
+                    
                 if prediccion is not None:
                     st.image(prediccion, caption="Resultado de la Predicción", use_column_width=True)
-
-                    # Guardar la imagen con el formato especificado
-                    prediccion_img = Image.fromarray((prediccion * 255).astype(np.uint8))
-                    buffer = io.BytesIO()
-                    nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
-                    prediccion_img.save(buffer, format="JPEG")
-                    buffer.seek(0)
-
-                    # Botón para descargar la imagen
-                    st.download_button(
-                        label="Descargar Imagen",
-                        data=buffer,
-                        file_name=nombre_archivo,
-                        mime="image/jpeg"
-                    )
+                    
+                    if flag != 1:
+                        # Guardar la imagen con el formato especificado 
+                        prediccion_img = Image.fromarray((prediccion*255).astype(np.uint8))
+                        buffer = io.BytesIO()
+                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
+                        prediccion_img.save(buffer, format="JPEG")
+                        buffer.seek(0)
+                    else:
+                        prediccion_img = prediccion
+                        # Si prediccion es un archivo de bytes, puedes utilizarlo directamente
+                        # Convertir la imagen a bytes
+                        buffer = io.BytesIO()
+                        prediccion_img.save(buffer, format="JPEG")  # Guardar la imagen en el buffer
+                        buffer.seek(0)
+                    
+                        # Definir el nombre del archivo
+                        nombre_archivo = f"{nombre_paciente}_{dni_paciente}_{fecha_examen}.jpg"
+                    
+                        # Botón para descargar la imagen
+                        st.download_button(
+                            label="Descargar Imagen",
+                            data=buffer,
+                            file_name=nombre_archivo,
+                            mime="image/jpeg"
+                        )
                 else:
                     st.write('No se pudo realizar la predicción.')
 
@@ -241,7 +275,7 @@ def main():
         st.subheader('¿Cuáles son los parámetros empleados?')
         st.write('Los parámetros que se pueden variar son los siguientes:')
         st.write('\t 1) El nombre del paciente ')
-        st.write('\t 2) El apellido del paciente ')
+        st.write('\t 2) El DNI del paciente ')
         st.write('\t 3) La fecha ')
         st.write('\t 4) Una imagen en formato: dcm, jpeg, png ')
 
