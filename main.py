@@ -47,19 +47,19 @@ class IA_Modelo:
         self.modelo = self.cargar_modelo(modelo_path)
 
     def cargar_modelo(self, modelo_path):
-        with open(modelo_path, 'rb') as file:
-            # Aquí deberías cargar el modelo con pickle
-            # modelo = pickle.load(file)
-            print('su considerable madre')
+        # Cargar el modelo en formato .pth
+        modelo = torch.load(modelo_path)
+        modelo.eval()  # Establecer el modelo en modo evaluación
         st.success("Modelo IA cargado correctamente.")
         return modelo
 
     def predecir(self, imagen):
         if imagen is not None:
-            # Aquí agregamos cualquier procesamiento adicional que sea necesario para el modelo.
-            # prediccion = self.modelo.predict([imagen.flatten()])  # Ejemplo simple
-            prediccion = 'hola'
-            return prediccion
+            # Aquí deberías agregar cualquier procesamiento adicional necesario para el modelo.
+            imagen_tensor = torch.tensor(imagen).float().unsqueeze(0)  # Convertir imagen a tensor
+            prediccion = self.modelo(imagen_tensor)  # Realizar predicción
+            prediccion_img = prediccion.detach().numpy()  # Convertir a numpy para mostrar
+            return prediccion_img
         else:
             st.warning("No se ha proporcionado una imagen válida para predecir.")
             return None
@@ -134,6 +134,8 @@ def main():
         uploaded_file = st.file_uploader("Elige un archivo DICOM o JPG", type=["dcm", "jpg", "jpeg"])
 
         if uploaded_file is not None:
+            # Cargar el modelo y hacer predicción
+            #modelo_ia = IA_Modelo("modelo_entrenado.pkl")
             # Obtener la extensión del archivo subido
             file_extension = uploaded_file.name.split(".")[-1].lower()
         
@@ -142,14 +144,13 @@ def main():
                 dicom_processor.cargar_archivo(uploaded_file)
                 dicom_processor.mostrar_imagen()
                 
-                # Cargar el modelo y hacer predicción
-                modelo_ia = IA_Modelo("modelo_entrenado.pkl")
+            
                 imagen = dicom_processor.obtener_imagen()
             else:
                 imagen = uploaded_file
         
             if st.button("Realizar Predicción"):
-                prediccion = modelo_ia.predecir(imagen)
+                prediccion = None #modelo_ia.predecir(imagen)
                 if prediccion is not None:
                     st.image(prediccion, caption="Resultado de la Predicción")
         
@@ -167,6 +168,8 @@ def main():
                         file_name=nombre_archivo,
                         mime="image/jpeg"
                     )
+                else:
+                    st.write('Aun no hago nada lol')
 
 
         # url = st.text_input('Link de la carpeta drive donde desee descargar') # permitir drive abrir
