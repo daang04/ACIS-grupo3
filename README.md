@@ -27,3 +27,7 @@ El desarrollo del trabajo se centra en la construcción de un sistema automatiza
 ## Conclusiones
 
 El S-CycleGAN demuestra ser eficaz en la generación de imágenes de ultrasonido sintéticas de alta calidad que mantienen las características anatómicas críticas de las imágenes de CT. Los resultados son prometedores para su aplicación en la simulación de escaneos y el desarrollo de sistemas de ultrasonido asistidos por robots. No obstante, los autores reconocen que aún existen desafíos, como la necesidad de desarrollar métricas más adecuadas para evaluar la calidad de las imágenes generadas y mejorar el proceso de entrenamiento del modelo para maximizar el uso de los datos sintéticos.
+
+## MEDGAN
+
+Por ello presentamos a [MEDGAN](https://acis-grupo3-hvbgrv8mkmp7yfhyb5ujxj.streamlit.app/)
