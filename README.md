@@ -30,4 +30,6 @@ El S-CycleGAN demuestra ser eficaz en la generación de imágenes de ultrasonido
 
 ## MEDGAN
 ![MEDGAN_icon](https://github.com/daang04/ACIS-grupo3/blob/main/icon_MEDGAN%20(1).png)
-Por ello presentamos a [MEDGAN](https://acis-grupo3-hvbgrv8mkmp7yfhyb5ujxj.streamlit.app/)
+
+
+Por ello presentamos a [MEDGAN](https://acis-grupo3-hvbgrv8mkmp7yfhyb5ujxj.streamlit.app/) la cual es una aplicación para poder generar base de datos sinteticas por medio de las estratejias explicadas enteriormente. Permitirá al peronal del sector salud obtener imagenes de US o CT para poner en practica sus conocimientos y entranar. 
